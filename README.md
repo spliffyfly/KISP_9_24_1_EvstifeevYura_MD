@@ -157,15 +157,7 @@ export default function Home() {
 
 ---
 
-## Полезные ссылки
 
-- [Официальная документация Expo](https://docs.expo.dev/)
-- [Create a project](https://docs.expo.dev/get-started/create-a-project/)
-- [Set up your environment](https://docs.expo.dev/get-started/set-up-your-environment/)
-- [Start developing](https://docs.expo.dev/get-started/start-developing/)
-- [Next steps](https://docs.expo.dev/get-started/next-steps/)
-- [Tools for development](https://docs.expo.dev/develop/tools/)
-- [Navigation](https://docs.expo.dev/develop/app-navigation/)
 
 ---
 
@@ -511,18 +503,5 @@ export default function RootLayout() {
 
 **Важно:** заставку **нельзя протестировать** через Expo Go или Development Build — нужна **preview** или **production**-сборка через EAS.
 
----
-
-## 11. Learning resources (Дополнительные материалы)
-
-После завершения туториала рекомендуется углубиться в технологии, использованные в проекте:
-
-- **React** — [Quick Start](https://react.dev/learn) и [Hooks](https://react.dev/reference/react/hooks) в официальной документации React.
-- **React Native** — [React Native basics](https://reactnative.dev/docs/getting-started), а также API-справочники: `View`, `Text`, [platform-specific code](https://reactnative.dev/docs/platform-specific-code), [списки данных](https://reactnative.dev/docs/using-a-listview).
-- **Flexbox** — для более глубокого понимания вёрстки.
-- **Жесты и анимации** — документация React Native Gesture Handler и Reanimated.
-- **[Отладка (Debugging)](https://docs.expo.dev/debugging/runtime-issues/)** — инструменты для поиска и исправления ошибок.
-- **Сообщество** — [Discord Expo](https://chat.expo.dev) для общения с другими разработчиками и вопросов.
-
----
+```
 
