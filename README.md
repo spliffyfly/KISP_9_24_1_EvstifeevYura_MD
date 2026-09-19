@@ -454,54 +454,7 @@ const onSaveImageAsync = async () => {
 
 ---
 
-## 10. Configure status bar, splash screen and app icon (Настройка статус-бара, заставки и иконки)
 
-Финальный этап — довести приложение "до товарного вида" перед публикацией в сторы.
+end 
 
-### Статус-бар
-
-Библиотека **`expo-status-bar`** предустановлена в каждом проекте `create-expo-app`.
-
-```tsx
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-
-export default function RootLayout() {
-  return (
-    <>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-      <StatusBar style="light" />
-    </>
-  );
-}
-```
-
-### Иконка приложения
-
-- Путь к иконке (`1024×1024 px`, `.png`) задаётся в `app.json` через свойство `"icon"`;
-- по умолчанию уже указывает на `./assets/images/icon.png`;
-- при сборке через **EAS** Expo автоматически генерирует оптимизированные иконки под каждое устройство.
-
-### Splash screen (заставка)
-
-- Настраивается через конфиг-плагин `expo-splash-screen` в `app.json`:
-
-```json
-{
-  "plugins": [
-    [
-      "expo-splash-screen",
-      {
-        "image": "./assets/images/splash-icon.png"
-      }
-    ]
-  ]
-}
-```
-
-**Важно:** заставку **нельзя протестировать** через Expo Go или Development Build — нужна **preview** или **production**-сборка через EAS.
-
-```
 
