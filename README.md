@@ -454,7 +454,59 @@ const onSaveImageAsync = async () => {
 
 ---
 
+## 10. Configure status bar, splash screen and app icon (Настройка статус-бара, заставки и иконки)
 
+Финальный этап — довести приложение "до товарного вида" перед публикацией в сторы.
+
+### Статус-бар
+
+Библиотека **`expo-status-bar`** предустановлена в каждом проекте `create-expo-app`.
+
+```tsx
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+
+export default function RootLayout() {
+  return (
+    <>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+      <StatusBar style="light" />
+    </>
+  );
+}
+```
+
+### Splash screen (заставка)
+
+- Настраивается через конфиг-плагин `expo-splash-screen` в `app.json`:
+
+```json
+{
+  "plugins": [
+    [
+      "expo-splash-screen",
+      {
+        "image": "./assets/images/splash-icon.png"
+      }
+    ]
+  ]
+}
+```
+
+**Важно:** заставку **нельзя протестировать** через Expo Go или Development Build — нужна **preview** или **production**-сборка через EAS.
+
+---
+
+## 11. Learning resources (Дополнительные материалы)
+
+После завершения туториала рекомендуется углубиться в технологии, использованные в проекте:
+
+- **React** — [Quick Start](https://react.dev/learn) и [Hooks](https://react.dev/reference/react/hooks) в официальной документации React.
+- **React Native** — [React Native basics](https://reactnative.dev/docs/getting-started), а также API-справочники: `View`, `Text`, [platform-specific code](https://reactnative.dev/docs/platform-specific-code), [списки данных](https://reactnative.dev/docs/using-a-listview).
+
+---
 end 
 
 
