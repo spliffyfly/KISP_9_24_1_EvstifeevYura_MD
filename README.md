@@ -1,16 +1,7 @@
 # Знакомство с Expo
 
-> Конспект по официальной документации [docs.expo.dev](https://docs.expo.dev/).
-> **Expo CLI** позволяет разрабатывать, собирать (компилировать) и запускать приложение, а также выполнять множество других задач в рамках одного инструмента.
-
-## Содержание
-
-1. [Create a project (Создание проекта)](#1-create-a-project-создание-проекта)
-2. [Set up your environment (Настройка окружения)](#2-set-up-your-environment-настройка-окружения)
-3. [Start developing (Начало разработки)](#3-start-developing-начало-разработки)
-4. [Next steps (Следующие шаги)](#4-next-steps-следующие-шаги)
-5. [Tools for development (Инструменты разработки)](#5-tools-for-development-инструменты-разработки)
-6. [Navigation (Навигация)](#6-navigation-навигация)
+Конспект по официальной документации [docs.expo.dev](https://docs.expo.dev/).
+**Expo CLI** позволяет разрабатывать, собирать (компилировать) и запускать приложение, а также выполнять множество других задач в рамках одного инструмента.
 
 ---
 
@@ -35,7 +26,7 @@ npx create-expo-app@latest
 npx create-expo-app@latest --template blank
 ```
 
-> 💡 Также можно стартовать не с дефолтного проекта, а с одного из готовых примеров Expo (`--example`), которые демонстрируют конкретную фичу (камера, виджеты и т.д.).
+Также можно стартовать не с дефолтного проекта, а с одного из готовых примеров Expo (`--example`), которые демонстрируют конкретную фичу (камера, виджеты и т.д.).
 
 ---
 
@@ -78,7 +69,7 @@ npx expo start
 npx expo start --tunnel
 ```
 
-> ⚠️ Режим `--tunnel` заметно медленнее, чем `LAN`/`Local`, поэтому используйте его только при необходимости.
+Режим `--tunnel` заметно медленнее, чем `LAN`/`Local`, поэтому используйте его только при необходимости.
 
 Изменения в коде (например, в `app/index.tsx`) применяются "на лету" благодаря **Fast Refresh**.
 
@@ -162,7 +153,7 @@ export default function Home() {
 }
 ```
 
-> Начиная с шаблона по умолчанию (`create-expo-app@latest`), **Expo Router уже встроен** в новый проект.
+Начиная с шаблона по умолчанию (`create-expo-app@latest`), **Expo Router уже встроен** в новый проект.
 
 ---
 
@@ -180,23 +171,9 @@ export default function Home() {
 
 # Туториал: StickerSmash (React Native и Expo)
 
-> Источник: [docs.expo.dev/tutorial/introduction](https://docs.expo.dev/tutorial/introduction/)
->
-> Это практический туториал от Expo, в котором с нуля создаётся универсальное приложение **StickerSmash** (Android, iOS, web) — выбор фото, добавление стикеров-эмодзи, жесты, сохранение скриншота.
+Источник: [docs.expo.dev/tutorial/introduction](https://docs.expo.dev/tutorial/introduction/)
 
-## Содержание туториала
-
-1. [Introduction (Введение)](#1-introduction-введение)
-2. [Create your first app (Создание первого приложения)](#2-create-your-first-app-создание-первого-приложения)
-3. [Add navigation (Добавление навигации)](#3-add-navigation-добавление-навигации)
-4. [Build a screen (Создание экрана)](#4-build-a-screen-создание-экрана)
-5. [Use an image picker (Использование выбора изображений)](#5-use-an-image-picker-использование-выбора-изображений)
-6. [Create a modal (Создание модального окна)](#6-create-a-modal-создание-модального-окна)
-7. [Add gestures (Добавление жестов)](#7-add-gestures-добавление-жестов)
-8. [Take a screenshot (Создание скриншота)](#8-take-a-screenshot-создание-скриншота)
-9. [Handle platform differences (Обработка различий платформ)](#9-handle-platform-differences-обработка-различий-платформ)
-10. [Configure status bar, splash screen and app icon (Настройка статус-бара, заставки и иконки)](#10-configure-status-bar-splash-screen-and-app-icon-настройка-статус-бара-заставки-и-иконки)
-11. [Learning resources (Дополнительные материалы)](#11-learning-resources-дополнительные-материалы)
+Это практический туториал от Expo, в котором с нуля создаётся универсальное приложение **StickerSmash** (Android, iOS, web) — выбор фото, добавление стикеров-эмодзи, жесты, сохранение скриншота.
 
 ---
 
@@ -309,7 +286,7 @@ export default function RootLayout() {
 
 Для отображения изображения используется компонент `Image` из библиотеки **`expo-image`**, а для кнопок — `Pressable` из React Native. Верстка строится с помощью **Flexbox** (`flex`, `alignItems`, `justifyContent`).
 
-> 💡 Кнопку выносят в переиспользуемый компонент `Button`, чтобы не дублировать код.
+Кнопку выносят в переиспользуемый компонент `Button`, чтобы не дублировать код.
 
 ---
 
@@ -436,7 +413,7 @@ npx expo install react-native-view-shot expo-media-library
 3. В функции сохранения вызвать `captureRef(imageRef, { height, quality })`, получить `uri`.
 4. Сохранить файл через `MediaLibrary.saveToLibraryAsync(uri)`.
 
-> 💡 Библиотек для решения нестандартных задач в React Native очень много — их можно найти на [React Native Directory](https://reactnative.directory/).
+Библиотек для решения нестандартных задач в React Native очень много — их можно найти на [React Native Directory](https://reactnative.directory/).
 
 ---
 
@@ -532,7 +509,7 @@ export default function RootLayout() {
 }
 ```
 
-> ⚠️ **Важно:** заставку **нельзя протестировать** через Expo Go или Development Build — нужна **preview** или **production**-сборка через EAS.
+**Важно:** заставку **нельзя протестировать** через Expo Go или Development Build — нужна **preview** или **production**-сборка через EAS.
 
 ---
 
@@ -549,16 +526,3 @@ export default function RootLayout() {
 
 ---
 
-## Полезные ссылки по туториалу
-
-- [Introduction](https://docs.expo.dev/tutorial/introduction/)
-- [Create your first app](https://docs.expo.dev/tutorial/create-your-first-app/)
-- [Add navigation](https://docs.expo.dev/tutorial/add-navigation/)
-- [Build a screen](https://docs.expo.dev/tutorial/build-a-screen/)
-- [Use an image picker](https://docs.expo.dev/tutorial/image-picker/)
-- [Create a modal](https://docs.expo.dev/tutorial/create-a-modal/)
-- [Add gestures](https://docs.expo.dev/tutorial/gestures/)
-- [Take a screenshot](https://docs.expo.dev/tutorial/screenshot/)
-- [Handle platform differences](https://docs.expo.dev/tutorial/platform-differences/)
-- [Configure status bar, splash screen and app icon](https://docs.expo.dev/tutorial/configuration/)
-- [Learning resources](https://docs.expo.dev/tutorial/follow-up/)
