@@ -824,5 +824,5 @@ import { StatusBar } from 'expo-status-bar';
   }
 }
 ```
-
+end 
 
