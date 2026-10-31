@@ -507,6 +507,322 @@ export default function RootLayout() {
 - **React Native** — [React Native basics](https://reactnative.dev/docs/getting-started), а также API-справочники: `View`, `Text`, [platform-specific code](https://reactnative.dev/docs/platform-specific-code), [списки данных](https://reactnative.dev/docs/using-a-listview).
 
 ---
-end 
+
+
+---
+
+
+## Пример 1. Создание и запуск проекта
+
+```bash
+# создать проект
+npx create-expo-app@latest MyFirstApp
+
+# перейти в папку проекта
+cd MyFirstApp
+
+# запустить сервер разработки
+npx expo start
+```
+
+Полезные клавиши в терминале после запуска:
+
+| Клавиша | Действие |
+| --- | --- |
+| `a` | открыть на Android-эмуляторе |
+| `i` | открыть на iOS-симуляторе |
+| `w` | открыть в браузере |
+| `r` | перезагрузить приложение |
+
+## Пример 2. Установка пакетов через Expo CLI
+
+```bash
+# устанавливает версию, совместимую с текущим SDK
+npx expo install expo-image-picker expo-status-bar
+
+# проверить код линтером
+npx expo lint
+```
+
+> 💡 Для пакетов Expo лучше использовать `npx expo install`, а не `npm install`.
+
+## Пример 3. Простой экран (Hello, Expo)
+
+Файл `app/index.tsx`:
+
+```tsx
+import { Text, View, StyleSheet } from 'react-native';
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Привет, Expo!</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#25292e',
+  },
+  title: {
+    color: '#fff',
+    fontSize: 24,
+  },
+});
+```
+
+## Пример 4. Навигация между экранами
+
+Файл `app/index.tsx` со ссылкой на второй экран:
+
+```tsx
+import { Link } from 'expo-router';
+import { View } from 'react-native';
+
+export default function Home() {
+  return (
+    <View>
+      <Link href="/about">Перейти на About</Link>
+    </View>
+  );
+}
+```
+
+Файл `app/about.tsx` — это и есть новый маршрут `/about`:
+
+```tsx
+import { Text, View } from 'react-native';
+
+export default function About() {
+  return (
+    <View>
+      <Text>Экран About</Text>
+    </View>
+  );
+}
+```
+
+Динамический маршрут `app/user/[id].tsx`:
+
+```tsx
+import { useLocalSearchParams } from 'expo-router';
+import { Text } from 'react-native';
+
+export default function User() {
+  const { id } = useLocalSearchParams();
+  return <Text>Пользователь №{id}</Text>;
+}
+```
+
+Переход к нему из кода:
+
+```tsx
+import { useRouter } from 'expo-router';
+
+const router = useRouter();
+router.push('/user/42');
+```
+
+## Пример 5. Нижние вкладки (tabs)
+
+Файл `app/(tabs)/_layout.tsx`:
+
+```tsx
+import { Tabs } from 'expo-router';
+
+export default function TabLayout() {
+  return (
+    <Tabs>
+      <Tabs.Screen name="index" options={{ title: 'Главная' }} />
+      <Tabs.Screen name="about" options={{ title: 'О нас' }} />
+    </Tabs>
+  );
+}
+```
+
+## Пример 6. Выбор изображения из галереи
+
+```tsx
+import { useState } from 'react';
+import { Button, View } from 'react-native';
+import { Image } from 'expo-image';
+import * as ImagePicker from 'expo-image-picker';
+
+export default function Picker() {
+  const [uri, setUri] = useState<string | null>(null);
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setUri(result.assets[0].uri);
+    }
+  };
+
+  return (
+    <View>
+      <Button title="Выбрать фото" onPress={pickImage} />
+      {uri && <Image source={{ uri }} style={{ width: 200, height: 200 }} />}
+    </View>
+  );
+}
+```
+
+## Пример 7. Модальное окно
+
+```tsx
+import { useState } from 'react';
+import { Modal, View, Text, Button } from 'react-native';
+
+export default function Example() {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <View>
+      <Button title="Открыть" onPress={() => setVisible(true)} />
+
+      <Modal animationType="slide" transparent visible={visible}>
+        <View style={{ marginTop: 'auto', backgroundColor: '#25292e', padding: 20 }}>
+          <Text style={{ color: '#fff' }}>Содержимое модального окна</Text>
+          <Button title="Закрыть" onPress={() => setVisible(false)} />
+        </View>
+      </Modal>
+    </View>
+  );
+}
+```
+
+## Пример 8. Жесты: двойной тап и перетаскивание
+
+```tsx
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
+
+export default function Sticker() {
+  const scale = useSharedValue(1);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
+  // двойной тап — увеличить / уменьшить
+  const doubleTap = Gesture.Tap()
+    .numberOfTaps(2)
+    .onStart(() => {
+      scale.value = scale.value === 1 ? 2 : 1;
+    });
+
+  // перетаскивание
+  const drag = Gesture.Pan().onChange((event) => {
+    translateX.value += event.changeX;
+    translateY.value += event.changeY;
+  });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+      { scale: withSpring(scale.value) },
+    ],
+  }));
+
+  return (
+    <GestureDetector gesture={Gesture.Simultaneous(doubleTap, drag)}>
+      <Animated.Text style={[{ fontSize: 48 }, animatedStyle]}>😀</Animated.Text>
+    </GestureDetector>
+  );
+}
+```
+
+> ⚠️ Корневой компонент экрана нужно обернуть в `GestureHandlerRootView`.
+
+## Пример 9. Скриншот и сохранение в галерею
+
+```tsx
+import { useRef } from 'react';
+import { View } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
+import * as MediaLibrary from 'expo-media-library';
+
+export default function Screenshot() {
+  const imageRef = useRef<View>(null);
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  if (status === null) {
+    requestPermission();
+  }
+
+  const onSave = async () => {
+    const localUri = await captureRef(imageRef, { height: 440, quality: 1 });
+    await MediaLibrary.saveToLibraryAsync(localUri);
+    alert('Сохранено!');
+  };
+
+  // <View ref={imageRef} collapsable={false}> ... </View>
+  // <Button title="Сохранить" onPress={onSave} />
+}
+```
+
+## Пример 10. Разный код для разных платформ
+
+```tsx
+import { Platform, Text } from 'react-native';
+
+// 1. Проверка через if
+if (Platform.OS === 'web') {
+  console.log('Это браузер');
+}
+
+// 2. Выбор значения через Platform.select
+const fontFamily = Platform.select({
+  ios: 'Helvetica',
+  android: 'Roboto',
+  web: 'Arial',
+});
+
+export default function Hello() {
+  return <Text style={{ fontFamily }}>Работает на {Platform.OS}</Text>;
+}
+```
+
+## Пример 11. Статус-бар, иконка и заставка
+
+Статус-бар в `app/_layout.tsx`:
+
+```tsx
+import { StatusBar } from 'expo-status-bar';
+
+<StatusBar style="light" />
+```
+
+Иконка и заставка в `app.json`:
+
+```json
+{
+  "expo": {
+    "name": "StickerSmash",
+    "icon": "./assets/images/icon.png",
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "backgroundColor": "#25292e"
+        }
+      ]
+    ]
+  }
+}
+```
 
 
